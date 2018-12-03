@@ -33,13 +33,8 @@ func newClaim(claimString string) *Claim {
 }
 
 func doesClaimIntersect(c Claim, row int, column int) bool {
-	//fmt.Printf("%s %d %d\n", claim, row, column)
-
-	//fmt.Printf("POSITION [%d,%d] CLAIMPOS[%d,%d] W/H[%d,%d]\n",
-	//	row, column, claimxpos, claimypos, claimwidth, claimheight)
 
 	if row > c.xpos && row <= (c.xpos+c.width) {
-		//fmt.Println("%d < %d < %d", claimxpos, row, (claimxpos + claimwidth))
 		if column > c.ypos && column <= (c.ypos+c.height) {
 			return true
 		}
