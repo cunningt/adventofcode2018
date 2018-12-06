@@ -13,5 +13,6 @@ My preference is to split the test set out into a *test.txt* file, and bring in 
 **day3** : ooh, this got a little more difficult.  Started using struct, started using regexes, started using funcs
 **day4** : had to learn timestamps, had to learn how to sort maps, had to learn more about structs
 **day5**: learned about runes, ascii representation, string replacement
+**day6** : sorting, math functions
 
 ## Final Standings
