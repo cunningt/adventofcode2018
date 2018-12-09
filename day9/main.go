@@ -14,13 +14,7 @@ func printRing(circle *ring.Ring) {
 	fmt.Println()
 }
 
-func main() {
-
-	// It'd be nicer if I did something with argv here or did
-	// something with reading in the number of players / lastmarble value
-	numplayers := 405
-	lastmarble := 7095300
-
+func solveProblem(numplayers int, lastmarble int) int {
 	var scores map[int]int
 	scores = make(map[int]int)
 
@@ -63,11 +57,24 @@ func main() {
 
 	// Print the scores
 	maxscore := 0
-	for k, v := range scores {
+	for _, v := range scores {
 		if v > maxscore {
 			maxscore = v
 		}
-		fmt.Printf("Player %d, Score %d\n", k, v)
 	}
+	return maxscore
+}
+
+func main() {
+
+	// Part 1
+	fmt.Println("====== Part1")
+	maxscore := solveProblem(405, 70953)
 	fmt.Printf("Maximum score is %d\n", maxscore)
+
+	// Part 2
+	fmt.Println("====== Part2")
+	maxscore = solveProblem(405, 7095300)
+	fmt.Printf("Maximum score is %d\n", maxscore)
+
 }
