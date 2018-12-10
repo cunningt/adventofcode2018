@@ -53,9 +53,31 @@ func updatePoint(p *Point) {
 // from the points and then recenter the graphs around that
 func simulate(seconds int, l *list.List) {
 
+	// Defaults
+	maxx := -999999
+	maxy := -999999
+	minx := 999999
+	miny := 999999
+
 	for m := l.Front(); m != nil; m = m.Next() {
 		point := m.Value.(*Point)
 		updatePoint(point)
+
+		// Set minimums and maximums
+		if minx > point.currentposition.x {
+			minx = point.currentposition.x
+		}
+		if miny > point.currentposition.y {
+			miny = point.currentposition.y
+		}
+
+		if maxx < point.currentposition.x {
+			maxx = point.currentposition.x
+		}
+
+		if maxy < point.currentposition.y {
+			maxy = point.currentposition.y
+		}
 	}
 
 	found := true
@@ -72,12 +94,6 @@ func simulate(seconds int, l *list.List) {
 			}
 		}
 	}
-
-	// This is a hack
-	minx := 120
-	miny := 90
-	maxx := 320
-	maxy := 290
 
 	if found {
 
@@ -98,8 +114,8 @@ func simulate(seconds int, l *list.List) {
 			grid[point.currentposition.x][point.currentposition.y] = '#'
 		}
 
-		for x := minx; x < maxx; x++ {
-			for y := miny; y < maxy; y++ {
+		for x := minx - 60; x < maxx+60; x++ {
+			for y := miny; y < maxy+160; y++ {
 				fmt.Printf("%s", string(grid[y][x]))
 			}
 			fmt.Println()
@@ -130,7 +146,7 @@ func main() {
 	}
 
 	// Let's simulate a bunch of seconds, I had no real idea how long it'd take
-	for s := 0; s < 50000; s++ {
+	for s := 1; s < 50000; s++ {
 		simulate(s, l)
 	}
 
