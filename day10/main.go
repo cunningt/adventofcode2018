@@ -48,9 +48,6 @@ func updatePoint(p *Point) {
 	p.currentposition.y += p.velocity.y
 }
 
-// This is ugly
-// We should do something where we read the minimum x / y
-// from the points and then recenter the graphs around that
 func simulate(seconds int, l *list.List) {
 
 	// Defaults
@@ -127,7 +124,7 @@ func simulate(seconds int, l *list.List) {
 		w := bufio.NewWriter(f)
 		for x := l.Front(); x != nil; x = x.Next() {
 			point := x.Value.(*Point)
-			pointstring := fmt.Sprintf("%d,%d\n", point.currentposition.x, point.currentposition.y)
+			pointstring := fmt.Sprintf("%d,%d\n", point.currentposition.y, point.currentposition.x)
 			w.WriteString(pointstring)
 		}
 		w.Flush()

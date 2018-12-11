@@ -1,12 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"container/list"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
 )
 
 type Node struct {
@@ -57,15 +52,6 @@ func parseNodes(nodelist *list.List, nodes *list.List, metadatas int) int {
 	}
 }
 
-// Wrote this for debugging nodes
-func printNode(tmpNode *Node) {
-	fmt.Printf("Node childs[%d] metadatas[%d] value[%d]\n", tmpNode.childnodes, tmpNode.metadata, tmpNode.value)
-	for m := tmpNode.metadatas.Front(); m != nil; m = m.Next() {
-		fmt.Printf("%d ", m.Value.(int))
-	}
-	fmt.Println()
-}
-
 // Get the answer for Part 2
 func calculateValue(node *Node) int {
 	if node == nil {
@@ -103,31 +89,4 @@ func calculateValue(node *Node) int {
 }
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-
-	// Read in all of the dependencies
-	var tree string
-	for scanner.Scan() {
-		tree = scanner.Text()
-	}
-
-	s := strings.Split(tree, " ")
-	l := list.New()
-	for i := 0; i < len(s); i++ {
-		num, _ := strconv.Atoi(s[i])
-
-		l.PushBack(num)
-	}
-
-	nodes := list.New()
-	metadata := parseNodes(l, nodes, 0)
-	// Answer for part 1
-	fmt.Printf("Metadata %d\n", metadata)
-
-	// part 2 : find the value of the root node
-	e := nodes.Front()
-	rootNode := e.Value.(*Node)
-
-	value := calculateValue(rootNode)
-	fmt.Printf("Value of rootNode : %d\n", value)
 }
