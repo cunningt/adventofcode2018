@@ -26,7 +26,7 @@ func parseInitialState(stateString string) string {
 	if re.MatchString(stateString) {
 		matches := re.FindAllStringSubmatch(stateString, -1)
 
-		initialstate = "..." + matches[0][1] + "..........."
+		initialstate = ".........." + matches[0][1] + "......................................................................................................................................................................................................................................................................."
 	}
 
 	return initialstate
@@ -42,9 +42,6 @@ func parseRule(ruleString string) *Rule {
 
 		rule.state = matches[0][1]
 
-		//strArr := []rune(rule.state)
-		//chars := fmt.Sprintf("%s(%c)%s", rule.state[:2], strArr[2], rule.state[2+1:])
-		//rule.state = string(chars)
 		rule.state = strings.Replace(rule.state, "#", "[\\#]", -1)
 		rule.state = strings.Replace(rule.state, ".", "[\\.]", -1)
 
@@ -75,7 +72,7 @@ func applyRule(initialstate string, currentstate string, rule *Rule) string {
 		//fmt.Printf("%s INDEX %d\n", rule.state, pos)
 
 		//fmt.Printf("POS %d RESULT %c LEN %d\n", pos, rule.result, len(strArr))
-		if pos >= 0 && (nextidx < len(initialstate)+1) {
+		if pos >= 0 && (nextidx < len(initialstate)+2) {
 			strArr[pos] = rule.result
 		}
 		idx = nextidx + 1
@@ -90,7 +87,7 @@ func countPots(currentstring string) int {
 	if re.MatchString(currentstring) {
 		indexes := re.FindAllStringIndex(currentstring, -1)
 		for _, element := range indexes {
-			count += (element[0] - 3)
+			count += (element[0] - 10)
 			//fmt.Printf("Found pot %d\n", (element[0] - 3))
 		}
 	}
@@ -122,6 +119,7 @@ func main() {
 
 	fmt.Printf("0: %s\n", initialstate)
 
+	//lastcount := 0
 	for gen := 1; gen <= 20; gen++ {
 		currentstate = strings.Replace(initialstate, "#", ".", -1)
 		//currentstate := "......................................."
@@ -131,7 +129,21 @@ func main() {
 		}
 		fmt.Printf("%d: %s\n", gen, currentstate)
 		genstate = currentstate
+
+		//fmt.Printf("%d Number of Pots : %d, diff of %d\n", gen, countPots(genstate), (countPots(genstate) - lastcount))
+		//lastcount = countPots(genstate)
+
 	}
 	fmt.Printf("Number of Pots : %d\n", countPots(genstate))
+
+	// Part 2 - it repeats - after looking at the counts, they seem to increase by 96
+	// 190 Number of Pots : 19327, diff of 96
+	// 191 Number of Pots : 19423, diff of 96
+	// 192 Number of Pots : 19519, diff of 96
+	// 193 Number of Pots : 19615, diff of 96
+	// Formula is X * 96 + 1087
+
+	part2 := (50000000000 * 96) + 1087
+	fmt.Printf("Answer for Part2 is %d\n\n", part2)
 
 }
