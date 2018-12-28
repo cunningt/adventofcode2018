@@ -207,6 +207,12 @@ func scoreForest() int {
 	return (treecount * lumbercount)
 }
 
+func simulate(time int) {
+	for t := 0; t <= time; t++ {
+
+	}
+}
+
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
