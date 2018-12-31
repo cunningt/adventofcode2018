@@ -1,0 +1,6 @@
+Immune System:
+100 units each with 10 hit points with an attack that does 100 slashing damage at initiative 3
+99 units each with 9 hit points (weak to radiation) with an attack that does 99 fire damage at initiative 2
+
+Infection:
+2 units each with 2 hit points (immune to slashing) with an attack that does 900 radiation damage at initiative 1
